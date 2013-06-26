@@ -378,7 +378,7 @@
 
           else if $scope.state is 'firstShow' then $scope.state = 'fullShow'
 
-        $scope.$watch 'user.settings.currentDic', $scope.next
+        $scope.$watch 'user.settings.currentDic', -> $scope.state = 'loading'; $scope.next()
 
         $scope.audioUrl = -> "http://www.gstatic.com/dictionary/static/sounds/de/0/#{$scope.challenge.word}.mp3"
         $scope.pronounce = -> $('#pronouncer').trigger 'play' unless $scope.user.settings?.mute
