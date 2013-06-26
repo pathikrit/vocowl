@@ -3,13 +3,13 @@ Vocowl
 
 [vocowl](http://vocowl.com) is my attempt to prototype a [no-backend](http://nobackend.org) server-less app that securely authenticates users and accepts payments. 
 
-Yes, you can [host](http://www.commandlinefu.com/commands/view/71/) the `index.html` on your machine and even though you don't have access to any of my sensitive data (like how many users I have or my private Stripe API key), the app would still work (it will authenticate users and send payments to me).
+Yes, you can host the `index.html` on your machine and even though you don't have access to any of my sensitive data (like how many users I have or my private Stripe API key), the app would still work (it will authenticate users and sends payments to me).
 
-You can test this by going to <http://vocowl.com> which is hosted on GitHub pages. This technique will let you host sophisticated client-side only apps on static file servers like DropBox or GitHub pages.
+You can test this by going to <http://vocowl.com> which is hosted on GitHub pages. This technique will let you host sophisticated client-side only apps on static file servers like DropBox or GitHub pages or out of S3.
 
 Rough sketch of how it works:
 
-**tl;dr: ** To create server-less apps, store data in [Firebase](https://www.firebase.com/) and store complex logic and private keys in [Webshell.io](http://webshell.io/)
+**tl;dr:** To create server-less apps, store data in [Firebase](https://www.firebase.com/) and store complex logic and private keys in [Webshell.io](http://webshell.io/)
 
 * I use [Persona](http://persona.org) for server-less client-side user-authentication
 
@@ -39,14 +39,13 @@ module.exports = {
         description: args.user
       }
     });
-    // todo: security, check if paid already
-    if (receipt.paid) {     // mark the user as paid in firebase
+    if (receipt.paid && receipt.amount < 1000) {     // mark the user as paid in firebase
       return patch({
         url: 'https://vocowl.firebaseio.com/users/' + args.user + '.json?auth=' + firebase_authKey,
         body: JSON.stringify({paid: true})
       });
     } else {
-      return receipt; // error happened, let client handle it
+      return receipt; // error happened or user paid less, let client handle it
     }
   }
 };
