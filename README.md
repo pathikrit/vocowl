@@ -5,7 +5,7 @@ Vocowl
 
 Yes, you can host the `index.html` on your machine and even though you don't have access to any of my sensitive data (like how many users I have or my private Stripe API key), the app would still work (it will authenticate users and sends payments to me).
 
-You can test this by going to <http://vocowl.com> which is hosted on GitHub pages. This technique will let you host sophisticated client-side only apps on static file servers like DropBox or GitHub pages or out of S3.
+You can test this by going to <http://vocowl.com> which is hosted on GitHub pages. This technique will let you host sophisticated client-side only apps on static file servers like DropBox or GitHub pages or out of S3. It also makes it possible for users to simple save and use the app locally from their own devices.
 
 Rough sketch of how it works:
 
@@ -60,4 +60,4 @@ module.exports = {
     * Users cannot modify their own data except what is under `user.settings` and nor can they data about other users
     * Payment data can only be modified through the script I stored in Webshell.io using a private key I stored there
 
-* I have some additional configuration in Webshell.io that prevents the app from accepting payments unless hosted on localhost:8000 or *.github.com or vocowl.com
+* I can have some additional configuration in Webshell.io that prevents the app from accepting payments and in Firebase from accepting Persona auths unless app is hosted on localhost:8000 or *.github.io or vocowl.com.
