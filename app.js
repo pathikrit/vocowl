@@ -180,8 +180,8 @@
             c2Correct: c2Correct
           };
           $scope.state = 'firstShow';
-          setTimeout($scope.pronounce, 314);
-          return $scope.$apply();
+          $scope.$apply();
+          return $scope.pronounce();
         });
       });
     };
