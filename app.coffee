@@ -18,8 +18,7 @@ meny = Meny.create
   position: 'left'
   width: 272
 
-tour = introJs()
-tour.onchange (el) -> if parseInt($(el).attr 'data-step') in [1 .. 6] then meny.close() else meny.open()
+tour = null
 
 dbUrl = 'https://vocowl.firebaseio.com'
 
@@ -165,7 +164,11 @@ f = ($scope, angularFire) ->
 
   $scope.reset = -> ($scope.user.words = {}; $scope.next()) if confirm 'Are you sure you want to reset your progress? You cannot undo this!'
   $scope.showSidebar = meny.open
-  $scope.walkthrough = -> tour.start()
+  $scope.walkthrough = ->
+    if not tour
+      tour = introJs()
+      tour.onchange (el) -> if parseInt($(el).attr 'data-step') in [1 .. 6] then meny.close() else meny.open()
+    tour.start()
 
 angular.module('VocowlApp', ['firebase', '$strap.directives'])
   .controller('VocowlCtrl', ['$scope', 'angularFire', f])

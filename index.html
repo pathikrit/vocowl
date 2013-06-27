@@ -130,23 +130,23 @@
     <script src="http://cdn.firebase.com/v0/firebase.js"></script>
     <script src="http://cdn.firebase.com/v0/firebase-auth-client.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angularFire/0.1.0/angularfire.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/meny/1.2/meny.min.js"></script>
     <script src="app.js" defer></script>
     <script src="https://login.persona.org/include.js"></script>
-    <script src="https://checkout.stripe.com/v2/checkout.js"></script>
     <script src="http://api.webshell.io/sdk/js?key=177e5f601d1826f250ebae3c31f388ec"></script>
-    <script src="http://cdn.jsdelivr.net/meny/1.2/meny.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/intro.js/0.4.0/intro.min.js"></script>
-    <script src="https://squaresend.com/squaresend.js"></script>
     <script defer>
       // TODO: Make sharing work (http://support.addthis.com/customer/portal/articles/381263-addthis-client-api)
      setTimeout(function() {
+       $.getScript('https://checkout.stripe.com/v2/checkout.js');
+       $.getScript('http://cdnjs.cloudflare.com/ajax/libs/intro.js/0.4.0/intro.min.js');
+       $.getScript('https://squaresend.com/squaresend.js');
        $.getScript('https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51b93bef4bd3bd5b&domready=1', function() {
           var addthis_config = {data_ga_tracker: 'UA-42001818-1' };
           var addthis_share = {url: 'vocowl.com', title: 'Vocowl', description: 'Vocowl is awesome!'};
           addthis.init();
           $('.addthis_toolbox').append('<iframe src="http://ghbtns.com/github-btn.html?user=pathikrit&repo=vocowl&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px"></iframe>');
        });
-      }, 7000);   // lazy load share buttons after 7 seconds?
+     }, 8025);   // lazy load share buttons after 8 seconds?
     </script>
   </body>
 </html>

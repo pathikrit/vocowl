@@ -48,16 +48,7 @@
     width: 272
   });
 
-  tour = introJs();
-
-  tour.onchange(function(el) {
-    var _ref;
-    if (_ref = parseInt($(el).attr('data-step')), __indexOf.call([1, 2, 3, 4, 5, 6], _ref) >= 0) {
-      return meny.close();
-    } else {
-      return meny.open();
-    }
-  });
+  tour = null;
 
   dbUrl = 'https://vocowl.firebaseio.com';
 
@@ -330,6 +321,17 @@
     };
     $scope.showSidebar = meny.open;
     return $scope.walkthrough = function() {
+      if (!tour) {
+        tour = introJs();
+        tour.onchange(function(el) {
+          var _ref;
+          if (_ref = parseInt($(el).attr('data-step')), __indexOf.call([1, 2, 3, 4, 5, 6], _ref) >= 0) {
+            return meny.close();
+          } else {
+            return meny.open();
+          }
+        });
+      }
       return tour.start();
     };
   };
