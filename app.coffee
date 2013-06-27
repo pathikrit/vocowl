@@ -31,14 +31,6 @@ define = (wordNum, callback) ->
     wordCache[wordNum].def = wordCache[wordNum].def.replace(/\$/g, ',') # todo get rid of this
     callback wordCache[wordNum]
 
-# TODO: Make sharing work (http://support.addthis.com/customer/portal/articles/381263-addthis-client-api)
-loadShare = -> $.getScript 'https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51b93bef4bd3bd5b&domready=1', ->
-  addthis_config = data_ga_tracker: 'UA-42001818-1'
-  addthis_share = url: 'vocowl.com', title: 'Vocowl', description: 'Vocowl is awesome!'
-  addthis.init()
-  $('.addthis_toolbox').append '<iframe src="http://ghbtns.com/github-btn.html?user=pathikrit&repo=vocowl&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px"></iframe>'
-setTimeout loadShare, 7000  # lazy load share buttons after 7 seconds?
-
 showChoiceId = 0
 clearTimeoutId = (id) -> if id then clearTimeout(id); id = null
 
