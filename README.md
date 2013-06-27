@@ -9,7 +9,9 @@ You can test this by going to <http://vocowl.com> which is hosted on GitHub page
 
 Rough sketch of how it works:
 
-**tl;dr:** To create server-less apps, store data in [Firebase](https://www.firebase.com/) and store complex logic and private keys in [Webshell.io](http://webshell.io/)
+**tl;dr:** To create server-less apps, store data in [Firebase](https://www.firebase.com/) and store complex logic and private keys in [Webshell.io](http://webshell.io/). To get started, you can look at the code in `app.coffee` file.
+
+Detailed explanation of a complex operation e.g. charging a credit card using Stripe:
 
 * I use [Persona](http://persona.org) for server-less client-side user-authentication
 
