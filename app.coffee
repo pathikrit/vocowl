@@ -86,7 +86,7 @@ f = ($scope, angularFire) ->
           c3: if not c2Correct then res.def else res2.def
           c2Correct: c2Correct
         $scope.state = 'firstShow'
-        setTimeout (-> $scope.pronounce()), 314
+        setTimeout $scope.pronounce, 314
         $scope.$apply()
 
   $scope.$watch 'state', (state) ->
@@ -149,10 +149,10 @@ f = ($scope, angularFire) ->
 
     else if $scope.state is 'firstShow' then $scope.state = 'fullShow'
 
-  $scope.$watch 'user.settings.currentDic', $scope.next
+  $scope.$watch 'user.settings.currentDic', $scope.next #TODO: Prevent extra sound on this change?
 
   $scope.audioUrl = -> "http://www.gstatic.com/dictionary/static/sounds/de/0/#{$scope.challenge.word}.mp3"
-  $scope.pronounce = -> $('#pronouncer').trigger 'play' unless $scope.user.settings?.mute
+  $scope.pronounce = -> if not $scope.user.settings?.mute and $scope.state in ['firstShow', 'fullShow', 'answer'] then $('#pronouncer').trigger 'play'
   $('#pronouncer').bind  'playing', -> $('#word').addClass 'play'
   $('#pronouncer').bind 'ended', -> $('#word').removeClass 'play'
   $('#pronouncer').bind 'error', -> $('#word').removeClass 'play', 'hover'; console.log "Could not pronounce #{$scope.challenge.word}"

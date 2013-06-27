@@ -180,9 +180,7 @@
             c2Correct: c2Correct
           };
           $scope.state = 'firstShow';
-          setTimeout((function() {
-            return $scope.pronounce();
-          }), 314);
+          setTimeout($scope.pronounce, 314);
           return $scope.$apply();
         });
       });
@@ -302,8 +300,8 @@
       return "http://www.gstatic.com/dictionary/static/sounds/de/0/" + $scope.challenge.word + ".mp3";
     };
     $scope.pronounce = function() {
-      var _ref;
-      if (!((_ref = $scope.user.settings) != null ? _ref.mute : void 0)) {
+      var _ref, _ref1;
+      if (!((_ref = $scope.user.settings) != null ? _ref.mute : void 0) && ((_ref1 = $scope.state) === 'firstShow' || _ref1 === 'fullShow' || _ref1 === 'answer')) {
         return $('#pronouncer').trigger('play');
       }
     };
