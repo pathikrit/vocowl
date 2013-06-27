@@ -116,6 +116,13 @@
       return ((_ref = $scope.user) != null ? (_ref1 = _ref.persona) != null ? _ref1.id : void 0 : void 0) && ((_ref2 = $scope.user) != null ? _ref2.paid : void 0);
     };
     $scope.charge = function() {
+      if (!$scope.authenticated()) {
+        alert('Please login before you pay!');
+        $scope.login();
+      }
+      if (!$scope.authenticated()) {
+        return;
+      }
       return StripeCheckout.open({
         key: 'pk_epaNvtfCH73tiXgKbMFeNBNw4jbqp',
         amount: 1000,

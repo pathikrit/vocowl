@@ -49,17 +49,22 @@ f = ($scope, angularFire) ->
 
   $scope.paid = -> $scope.user?.persona?.id and $scope.user?.paid
 
-  $scope.charge = -> StripeCheckout.open
-    key: 'pk_epaNvtfCH73tiXgKbMFeNBNw4jbqp'
-    amount: 1000
-    currency: 'usd'
-    name: $scope.user.email
-    description: 'Vocowl'
-    panelLabel:  'Buy Vocowl+ for '
-    token: (res) -> wsh.exec
-      code: -> fs.pathikrit.stripe.charge args
-      args: token: res.id, user: $scope.user.persona.id
-      success: (receipt) -> if receipt.error then alert "Transaction Error: #{receipt.error.message}"
+  $scope.charge = ->
+    if not $scope.authenticated()
+      alert 'Please login before you pay!'
+      $scope.login()
+    return unless $scope.authenticated()
+    StripeCheckout.open
+      key: 'pk_epaNvtfCH73tiXgKbMFeNBNw4jbqp'
+      amount: 1000
+      currency: 'usd'
+      name: $scope.user.email
+      description: 'Vocowl'
+      panelLabel:  'Buy Vocowl+ for '
+      token: (res) -> wsh.exec
+        code: -> fs.pathikrit.stripe.charge args
+        args: token: res.id, user: $scope.user.persona.id
+        success: (receipt) -> if receipt.error then alert "Transaction Error: #{receipt.error.message}"
 
   $scope.challenge = word: null, c2: null, c3: null, c2Correct: null
 

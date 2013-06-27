@@ -62,7 +62,7 @@
           <h1>
             <a class="btn btn-danger" ng-hide="authenticated()" href="" ng-click="login()">Login</a>
             <a class="btn" ng-show="authenticated()" href="" ng-click="logout()">Logout</a>
-            <a class="btn btn-success" ng-show="authenticated() && !paid()" href="" ng-click="charge()">Buy Vocowl+</a>
+            <a class="btn btn-success" ng-show="!paid()" href="" ng-click="charge()">Buy Vocowl+</a>
             <br/><br/>
             <a href="" rel="tooltip" data-toggle="tooltip" title="Help" ng-click="walkthrough()" data-intro='Congratulations! You are now ready to use vocowl! You can retake this tour anytime by clicking here. Please do not forget to leave feedbacks and share vocowl with your friends!' data-step='8' data-position='top'><i class="icon-question"></i></a>
             <a href="mailto:pathikritbhowmick@msn.com?sqs_title=Contact Us" rel="tooltip" data-toggle="tooltip" title="Contact Us"><i class="icon-envelope"></i></a>
