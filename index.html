@@ -12,7 +12,7 @@
     <title>vocowl</title>
 
     <link href="http://netdna.bootstrapcdn.com/bootswatch/2.3.2/cyborg/bootstrap.min.css" rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="http://cdnjs.cloudflare.com/ajax/libs/intro.js/0.4.0/introjs.min.css" rel="stylesheet">
     <link href="style.css" type="text/css" rel="stylesheet">
 
@@ -94,7 +94,7 @@
         <span id="word" ng-click="pronounce()" ng-class="user.settings.mute ? '' : 'hover'" data-intro='This is the word you are learning. You can click on it to repeat the pronunciation.' data-step='1'>{{challenge.word}}</span>
         <div style="display: none">
           <button id="fullShowBtn" ng-click="state = 'fullShow'"></button>
-          <audio id="pronouncer" ng-src="{{audioUrl()}}"></audio>
+          <audio id="pronouncer" ng-src="{{challenge.word ? audioUrl() : ''}}"></audio>
         </div>
         <ol id="choices" data-intro="Your choices show up here. The 2nd and 3rd choices show up after a delay to give you time to think. You can either click 'I don't know' right away or hit any key to immediately show rest of the choices." data-step='2'>
           <li><span id="c1" ng-click="choose(1)" ng-class="choiceClass(1)" ng-show="showChoices(1)" data-intro='Click here (or press 1) if you do not know the word.' data-step='3'>1) {{challenge.c1}}</span></li>
@@ -105,7 +105,10 @@
         <div id="tally" ng-show="state === 'firstShow' || state === 'answer'">
           <span id="check" ng-show="state === 'answer' && correctChoice()">✓</span>
           <span id="cross" ng-show="state === 'answer' && !correctChoice()">✗</span>
-          <p><span id="next" ng-click="next()" class="hover">[press any key {{state === 'firstShow' ? 'to show choices' : 'for next word'}}]</span></p>
+          <p>
+            <span ng-click="next()" class="hover" ng-show="state === 'firstShow'">[showing choices in <span id="countdown"></span> or press any key]</span>
+            <span ng-click="next()" class="hover" ng-show="state === 'answer'">[press any key for next word]</span>
+          </p>
         </div>
       </div>
 
@@ -131,6 +134,7 @@
     <script src="http://cdn.firebase.com/v0/firebase-auth-client.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angularFire/0.1.0/angularfire.min.js"></script>
     <script src="http://cdn.jsdelivr.net/meny/1.2/meny.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-countdown/1.6.1/jquery.countdown.min.js"></script>
     <script src="app.js" defer></script>
     <script src="https://login.persona.org/include.js"></script>
     <script src="http://api.webshell.io/sdk/js?key=177e5f601d1826f250ebae3c31f388ec"></script>
@@ -140,6 +144,7 @@
        $.getScript('https://checkout.stripe.com/v2/checkout.js');
        $.getScript('http://cdnjs.cloudflare.com/ajax/libs/intro.js/0.4.0/intro.min.js');
        $.getScript('https://squaresend.com/squaresend.js');
+       //TODO:       $.getScript('http://api.webshell.io/sdk/js?key=177e5f601d1826f250ebae3c31f388ec');
        $.getScript('https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51b93bef4bd3bd5b&domready=1', function() {
           var addthis_config = {data_ga_tracker: 'UA-42001818-1' };
           var addthis_share = {url: 'vocowl.com', title: 'Vocowl', description: 'Vocowl is awesome!'};

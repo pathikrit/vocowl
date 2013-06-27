@@ -93,8 +93,10 @@ f = ($scope, angularFire) ->
     clearTimeoutId showChoiceId
     switch state
       when 'firstShow'
+        delay = 4;
         f = -> $('#fullShowBtn').click()
-        showChoiceId = setTimeout f, 4000
+        showChoiceId = setTimeout f, delay*1000
+        $('#countdown').countdown('destroy').countdown until: delay, layout: '{sn}'
         $('body').keypress (e) -> if e.charCode - 48 is 1 then $('#c1').click() else f()
 
       when 'fullShow'

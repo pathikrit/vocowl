@@ -186,14 +186,20 @@
       });
     };
     $scope.$watch('state', function(state) {
+      var delay;
       $('body').unbind();
       clearTimeoutId(showChoiceId);
       switch (state) {
         case 'firstShow':
+          delay = 4;
           f = function() {
             return $('#fullShowBtn').click();
           };
-          showChoiceId = setTimeout(f, 4000);
+          showChoiceId = setTimeout(f, delay * 1000);
+          $('#countdown').countdown('destroy').countdown({
+            until: delay,
+            layout: '{sn}'
+          });
           return $('body').keypress(function(e) {
             if (e.charCode - 48 === 1) {
               return $('#c1').click();
