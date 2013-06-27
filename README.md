@@ -1,7 +1,7 @@
 Vocowl
 ======
 
-[vocowl](http://vocowl.com) is my attempt to prototype a [no-backend](http://nobackend.org) server-less app that securely authenticates users and accepts payments. 
+[vocowl](http://vocowl.com) is my attempt to prototype a [no-backend](http://nobackend.org) [server-less](https://unhosted.org/) app that securely authenticates users and accepts payments.
 
 Yes, you can host the `index.html` on your machine and even though you don't have access to any of my sensitive data (like how many users I have or my private Stripe API key), the app would still work (it will authenticate users and sends payments to me).
 

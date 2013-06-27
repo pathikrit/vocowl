@@ -116,7 +116,7 @@
     };
     $(window).bind('beforeunload', function() {
       var _ref;
-      if (!$scope.authenticated() && ((_ref = $scope.user.words) != null ? _ref.length : void 0) > 0) {
+      if (!$scope.authenticated() && ((_ref = $scope.user) != null ? _ref.words : void 0) && Object.keys($scope.user.words) > 0) {
         return 'You are not logged in. All your learning history would be lost! Please login to save your progress.';
       }
     });

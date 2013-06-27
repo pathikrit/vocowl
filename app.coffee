@@ -45,7 +45,7 @@ f = ($scope, angularFire) ->
   $scope.logout = -> authClient.logout(); location.reload()
   $scope.authenticated = -> $scope.user?.persona?
 
-  $(window).bind 'beforeunload', -> if not $scope.authenticated() and $scope.user.words?.length > 0
+  $(window).bind 'beforeunload', -> if not $scope.authenticated() and $scope.user?.words and Object.keys($scope.user.words) > 0
     'You are not logged in. All your learning history would be lost! Please login to save your progress.'
 
   $scope.paid = -> $scope.user?.persona?.id and $scope.user?.paid
