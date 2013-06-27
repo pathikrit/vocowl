@@ -69,10 +69,6 @@ f = ($scope, angularFire) ->
   $scope.challenge = word: null, c2: null, c3: null, c2Correct: null
 
   $scope.next = ->
-    if $scope.state is 'firstShow'
-      clearTimeout showChoiceId
-      $scope.state = 'fullShow'
-      return
     $scope.state = 'loading'
     $scope.selection = 0
     pool = lists[$scope.user.settings.currentDic].filter (i) -> $scope.user.words?[i] isnt 3
@@ -153,13 +149,13 @@ f = ($scope, angularFire) ->
 
     else if $scope.state is 'firstShow' then $scope.state = 'fullShow'
 
-  $scope.$watch 'user.settings.currentDic', -> $scope.state = 'loading'; $scope.next()
+  $scope.$watch 'user.settings.currentDic', $scope.next
 
   $scope.audioUrl = -> "http://www.gstatic.com/dictionary/static/sounds/de/0/#{$scope.challenge.word}.mp3"
   $scope.pronounce = -> $('#pronouncer').trigger 'play' unless $scope.user.settings?.mute
   $('#pronouncer').bind  'playing', -> $('#word').addClass 'play'
   $('#pronouncer').bind 'ended', -> $('#word').removeClass 'play'
-  $('#pronouncer').bind 'error', -> $('#word').removeClass 'play'; console.log "Could not pronounce #{$scope.challenge.word}"
+  $('#pronouncer').bind 'error', -> $('#word').removeClass 'play', 'hover'; console.log "Could not pronounce #{$scope.challenge.word}"
 
   $scope.owlImage = [
     'http://th00.deviantart.net/fs71/PRE/f/2013/041/5/a/nerdy_owl_by_vincenthachen-d5uh23z.jpg'

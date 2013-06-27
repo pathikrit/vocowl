@@ -156,11 +156,6 @@
     };
     $scope.next = function() {
       var incorrectId, pool, wordId;
-      if ($scope.state === 'firstShow') {
-        clearTimeout(showChoiceId);
-        $scope.state = 'fullShow';
-        return;
-      }
       $scope.state = 'loading';
       $scope.selection = 0;
       pool = lists[$scope.user.settings.currentDic].filter(function(i) {
@@ -302,10 +297,7 @@
         return $scope.state = 'fullShow';
       }
     };
-    $scope.$watch('user.settings.currentDic', function() {
-      $scope.state = 'loading';
-      return $scope.next();
-    });
+    $scope.$watch('user.settings.currentDic', $scope.next);
     $scope.audioUrl = function() {
       return "http://www.gstatic.com/dictionary/static/sounds/de/0/" + $scope.challenge.word + ".mp3";
     };
@@ -322,7 +314,7 @@
       return $('#word').removeClass('play');
     });
     $('#pronouncer').bind('error', function() {
-      $('#word').removeClass('play');
+      $('#word').removeClass('play', 'hover');
       return console.log("Could not pronounce " + $scope.challenge.word);
     });
     $scope.owlImage = ['http://th00.deviantart.net/fs71/PRE/f/2013/041/5/a/nerdy_owl_by_vincenthachen-d5uh23z.jpg', 'http://rookery.s3.amazonaws.com/1134000/1134193_2296_1024x2000.jpg', 'http://static.tvtropes.org/pmwiki/pub/images/owlknow2_4738.jpg', 'http://4.bp.blogspot.com/_hDFBssUrrAo/TLMfHWSh0kI/AAAAAAAAAAQ/t4rXLe32DwE/s1600/owl_glasses.jpg', 'http://img0.etsystatic.com/002/0/6896838/il_fullxfull.357406812_2yoo.jpg'].random();

@@ -106,8 +106,8 @@
           <span id="check" ng-show="state === 'answer' && correctChoice()">✓</span>
           <span id="cross" ng-show="state === 'answer' && !correctChoice()">✗</span>
           <p>
-            <span ng-click="next()" class="hover" ng-show="state === 'firstShow'">[showing choices in <span id="countdown"></span> or press any key]</span>
-            <span ng-click="next()" class="hover" ng-show="state === 'answer'">[press any key for next word]</span>
+            <span ng-click="state = 'fullShow'" class="hover" ng-show="state === 'firstShow'">[showing choices in <span id="countdown"></span> or press any key]</span>
+            <span ng-click="next()" class="hover" ng-show="state === 'answer'" id="next">[press any key for next word]</span>
           </p>
         </div>
       </div>
