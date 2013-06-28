@@ -159,8 +159,7 @@
       $scope.state = 'loading';
       $scope.selection = 0;
       pool = lists[$scope.user.settings.currentDic].filter(function(i) {
-        var _ref;
-        return ((_ref = $scope.user.words) != null ? _ref[i] : void 0) !== 3;
+        return $scope.user.words[i] < 3;
       });
       if (pool.length === 0) {
         return $scope.state = 'finish';
@@ -254,7 +253,7 @@
             return w[4];
         }
       })();
-      total = 5 * lists[$scope.user.settings.currentDic].length;
+      total = 6 * lists[$scope.user.settings.currentDic].length;
       return (100 * x / total).toFixed(2);
     };
     $scope.choiceClass = function(n) {
@@ -289,7 +288,7 @@
           _base.words = {};
         }
         oldScore = (_ref1 = $scope.user.words[$scope.challenge.id]) != null ? _ref1 : 0;
-        $scope.user.words[$scope.challenge.id] = n === 1 ? 0 : $scope.correctChoice(n) ? oldScore + 1 : Math.max(-1, oldScore - 1);
+        $scope.user.words[$scope.challenge.id] = n === 1 ? 0 : $scope.correctChoice(n) ? Math.min(3, oldScore + 1) : Math.max(-1, oldScore - 1);
         return $scope.state = 'answer';
       } else if ($scope.state === 'firstShow') {
         return $scope.state = 'fullShow';

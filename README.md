@@ -7,7 +7,7 @@ Yes, you can host the `index.html` on your machine and even though you don't hav
 
 You can test this by going to <http://vocowl.com> which is hosted on GitHub pages and using a [test credit card](https://stripe.com/docs/testing) (or a real one if you want to thank me :-)) 
 
-This technique will let you host sophisticated client-side only apps on static file servers like DropBox or GitHub pages or out of S3. It also makes it possible for users to simple save and use the app locally from their own devices.
+This technique will let you host sophisticated client-side only apps on static file servers like DropBox or GitHub pages or out of S3. It also makes it possible for users to simply save and use the app locally from their own devices.
 
 Rough sketch of how it works:
 

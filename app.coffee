@@ -71,7 +71,7 @@ f = ($scope, angularFire) ->
   $scope.next = ->
     $scope.state = 'loading'
     $scope.selection = 0
-    pool = lists[$scope.user.settings.currentDic].filter (i) -> $scope.user.words?[i] isnt 3
+    pool = lists[$scope.user.settings.currentDic].filter (i) -> $scope.user.words[i] < 3
     if pool.length is 0 then return $scope.state = 'finish'
     wordId = pool.random()
     incorrectId = lists[types[descHash[$scope.challenge.id] & 3]].random()
@@ -120,7 +120,8 @@ f = ($scope, angularFire) ->
       when 'dunno' then w[1]
       when 'progress' then w[2] + w[3]
       when 'correct' then w[4]
-    total  = 5 * lists[$scope.user.settings.currentDic].length
+    total  = 6 * lists[$scope.user.settings.currentDic].length
+    #if $scope.state is 'finish' and type is 'total' and x isnt total then throw 'TODO: You are not done boy!'
     (100*x/total).toFixed 2
 
   $scope.choiceClass = (n) ->
@@ -143,7 +144,7 @@ f = ($scope, angularFire) ->
       oldScore = $scope.user.words[$scope.challenge.id] ? 0
       $scope.user.words[$scope.challenge.id] =
         if n is 1 then 0
-        else if $scope.correctChoice n then oldScore + 1
+        else if $scope.correctChoice n then Math.min(3, oldScore + 1)
         else Math.max(-1, oldScore - 1)
       $scope.state = 'answer'
 
