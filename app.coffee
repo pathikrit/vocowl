@@ -115,7 +115,7 @@ f = ($scope, angularFire) ->
   $scope.progress = (type) ->
     myDic = lists[$scope.user.settings.currentDic]
     w = [0, 0, 0, 0, 0]
-    for word in myDic when $scope.user.words[word]?
+    for word in myDic when $scope.user.words?[word]?
       score = $scope.user.words[word]
       if score < -1 or score > 3
         console.log "#{$scope.challenge.word} has invalid score = #{score}"
@@ -179,6 +179,5 @@ f = ($scope, angularFire) ->
       tour.onchange (el) -> if parseInt($(el).attr 'data-step') in [1 .. 6] then meny.close() else meny.open()
     tour.start()
 
-angular.module('VocowlApp', ['firebase', '$strap.directives'])
-  .controller('VocowlCtrl', ['$scope', 'angularFire', f])
+angular.module('VocowlApp', ['firebase', '$strap.directives']).controller('VocowlCtrl', ['$scope', 'angularFire', f])
 angular.bootstrap document, ['VocowlApp']

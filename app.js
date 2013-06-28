@@ -235,12 +235,12 @@
       return $scope.challenge.c2Correct && n === 2 || !$scope.challenge.c2Correct && n === 3;
     };
     $scope.progress = function(type) {
-      var myDic, score, w, word, x, _k, _len2;
+      var myDic, score, w, word, x, _k, _len2, _ref;
       myDic = lists[$scope.user.settings.currentDic];
       w = [0, 0, 0, 0, 0];
       for (_k = 0, _len2 = myDic.length; _k < _len2; _k++) {
         word = myDic[_k];
-        if (!($scope.user.words[word] != null)) {
+        if (!(((_ref = $scope.user.words) != null ? _ref[word] : void 0) != null)) {
           continue;
         }
         score = $scope.user.words[word];
