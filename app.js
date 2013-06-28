@@ -159,7 +159,8 @@
       $scope.state = 'loading';
       $scope.selection = 0;
       pool = lists[$scope.user.settings.currentDic].filter(function(i) {
-        return $scope.user.words[i] < 3;
+        var _ref;
+        return ((_ref = $scope.user.words) != null ? _ref[i] : void 0) < 3;
       });
       if (pool.length === 0) {
         return $scope.state = 'finish';
