@@ -235,11 +235,19 @@
       return $scope.challenge.c2Correct && n === 2 || !$scope.challenge.c2Correct && n === 3;
     };
     $scope.progress = function(type) {
-      var score, total, w, word, x, _ref;
+      var myDic, score, w, word, x, _k, _len2;
+      myDic = lists[$scope.user.settings.currentDic];
       w = [0, 0, 0, 0, 0];
-      _ref = $scope.user.words;
-      for (word in _ref) {
-        score = _ref[word];
+      for (_k = 0, _len2 = myDic.length; _k < _len2; _k++) {
+        word = myDic[_k];
+        if (!($scope.user.words[word] != null)) {
+          continue;
+        }
+        score = $scope.user.words[word];
+        if (score < -1 || score > 3) {
+          console.log("" + $scope.challenge.word + " has invalid score = " + score);
+          $scope.user.words[word] = score = 0;
+        }
         w[score + 1] += score + 2;
       }
       x = (function() {
@@ -256,8 +264,7 @@
             return w[4];
         }
       })();
-      total = 6 * lists[$scope.user.settings.currentDic].length;
-      return (100 * x / total).toFixed(2);
+      return ((100 * x) / (5 * myDic.length)).toFixed(2);
     };
     $scope.choiceClass = function(n) {
       var isCorrect;

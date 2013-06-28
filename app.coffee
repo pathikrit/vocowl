@@ -113,17 +113,21 @@ f = ($scope, angularFire) ->
   $scope.correctChoice = (n = $scope.selection) -> $scope.challenge.c2Correct and n is 2 or not $scope.challenge.c2Correct and n is 3
 
   $scope.progress = (type) ->
+    myDic = lists[$scope.user.settings.currentDic]
     w = [0, 0, 0, 0, 0]
-    w[score+1] += score+2 for word, score of $scope.user.words
+    for word in myDic when $scope.user.words[word]?
+      score = $scope.user.words[word]
+      if score < -1 or score > 3
+        console.log "#{$scope.challenge.word} has invalid score = #{score}"
+        $scope.user.words[word] = score = 0
+      w[score+1] += score+2
     x = switch type
       when 'total' then w[0] + w[1] + w[2] + w[3] + w[4]
       when 'incorrect' then w[0]
       when 'dunno' then w[1]
       when 'progress' then w[2] + w[3]
       when 'correct' then w[4]
-    total  = 6 * lists[$scope.user.settings.currentDic].length
-    #if $scope.state is 'finish' and type is 'total' and x isnt total then throw 'TODO: You are not done boy!'
-    (100*x/total).toFixed 2
+    ((100 * x)/(5 * myDic.length)).toFixed 2
 
   $scope.choiceClass = (n) ->
     isCorrect = $scope.correctChoice n

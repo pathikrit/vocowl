@@ -112,13 +112,13 @@
         </div>
       </div>
 
-      <div id="progressbar" ng-show="state !== 'loading'">
-        <div class="progress" ng-cloak data-intro='Track your progress here.' data-step='6' data-position='top'>
+      <div id="progressbar" ng-show="state !== 'loading'" data-intro='Track your progress here.' data-step='6' data-position='top'>
+        <span id="total">{{progress('total')}}% complete</span>
+        <div class="progress" ng-cloak>
           <div class="bar"             ng-style="{'width': progress('progress') + '%'}"  rel="tooltip" data-toggle="tooltip" bs-tooltip="progress('progress') + '% in progress :-\\'"></div>
           <div class="bar bar-success" ng-style="{'width': progress('correct') + '%'}"   rel="tooltip" data-toggle="tooltip" bs-tooltip="progress('correct') + '% learned :-)'"></div>
           <div class="bar bar-warning" ng-style="{'width': progress('dunno') + '%'}"     rel="tooltip" data-toggle="tooltip" bs-tooltip="progress('dunno') + '% learning :-|'"></div>
           <div class="bar bar-danger"  ng-style="{'width': progress('incorrect') + '%'}" rel="tooltip" data-toggle="tooltip" bs-tooltip="progress('incorrect') + '% incorrect :-('"></div>
-          <span id="total" rel="tooltip" data-toggle="tooltip" bs-tooltip="progress('total') + '% complete'">{{progress('total')}} %</span>
         </div>
       </div>
 
