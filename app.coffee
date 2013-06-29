@@ -44,6 +44,7 @@ f = ($scope, angularFire) ->
     $('[rel=tooltip]').tooltip()
     $('#love').popover html: yes, content: -> $('#share').html()
     $('#next').click()
+    meny.open()         # TODO: unbind and rebind mousemove after 5 seconds
 
   $scope.login = -> authClient.login 'Persona'
   $scope.logout = -> authClient.logout(); location.reload()

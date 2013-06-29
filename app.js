@@ -103,7 +103,8 @@
           return $('#share').html();
         }
       });
-      return $('#next').click();
+      $('#next').click();
+      return meny.open();
     });
     $scope.login = function() {
       return authClient.login('Persona');
