@@ -95,6 +95,8 @@
         <div style="display: none">
           <button id="fullShowBtn" ng-click="state = 'fullShow'"></button>
           <audio id="pronouncer" ng-src="{{challenge.word ? audioUrl() : ''}}"></audio>
+          <audio id="correctSound" src="correct.mp3" preload="none"></audio>
+          <audio id="incorrectSound" src="incorrect.mp3" preload="none"></audio>
         </div>
         <ol id="choices" data-intro="Your choices show up here. The 2nd and 3rd choices show up after a delay to give you time to think. You can either click 'I don't know' right away or hit any key to immediately show rest of the choices." data-step='2'>
           <li><span id="c1" ng-click="choose(1)" ng-class="choiceClass(1)" ng-show="showChoices(1)" data-intro='Click here (or press 1) if you do not know the word.' data-step='3'>1) {{challenge.c1}}</span></li>

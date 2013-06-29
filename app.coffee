@@ -18,6 +18,11 @@ meny = Meny.create
   position: 'left'
   width: 272
 
+play = (audioElementId) ->
+  el = document.getElementById audioElementId
+  if window.chrome then el.load() else el.currentTime = 0 # chrome does not support currentTime
+  el.play()
+
 tour = null
 
 dbUrl = 'https://vocowl.firebaseio.com'
@@ -151,9 +156,14 @@ f = ($scope, angularFire) ->
       $scope.user.words ?= {}
       oldScore = $scope.user.words[$scope.challenge.id] ? 0
       $scope.user.words[$scope.challenge.id] =
-        if n is 1 then 0
-        else if $scope.correctChoice n then Math.min(3, oldScore + 1)
-        else Math.max(-1, oldScore - 1)
+        if n is 1
+          0
+        else if $scope.correctChoice n
+          play 'correctSound'
+          Math.min 3, oldScore + 1
+        else
+          play 'incorrectSound'
+          Math.max -1, oldScore - 1
       $scope.state = 'answer'
 
     else if $scope.state is 'firstShow' then $scope.state = 'fullShow'
