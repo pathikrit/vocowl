@@ -45,7 +45,7 @@
     menuElement: document.querySelector('.config'),
     contentsElement: document.querySelector('.main'),
     position: 'left',
-    width: 272
+    width: 258
   });
 
   play = function(audioElementId) {
@@ -90,21 +90,12 @@
     var authClient;
     authClient = new FirebaseAuthClient(new Firebase(dbUrl), function(error, user) {
       if (user) {
-        angularFire("" + dbUrl + "/users/" + user.id, $scope, 'user', {
+        return angularFire("" + dbUrl + "/users/" + user.id, $scope, 'user', {
           email: user.email,
           persona: user,
           settings: {}
         });
       }
-      $('[rel=tooltip]').tooltip();
-      $('#love').popover({
-        html: true,
-        content: function() {
-          return $('#share').html();
-        }
-      });
-      $('#next').click();
-      return meny.open();
     });
     $scope.login = function() {
       return authClient.login('Persona');
@@ -325,7 +316,11 @@
         return $scope.state = 'fullShow';
       }
     };
-    $scope.$watch('user.settings.currentDic', $scope.next);
+    $scope.$watch('user.settings.currentDic', function() {
+      if ($scope.state !== 'loading') {
+        return $scope.next();
+      }
+    });
     $scope.audioUrl = function() {
       return "http://www.gstatic.com/dictionary/static/sounds/de/0/" + $scope.challenge.word + ".mp3";
     };
@@ -364,6 +359,10 @@
             return meny.open();
           }
         });
+        tour.oncomplete(function() {
+          $('#introModal').modal('show');
+          return meny.close();
+        });
       }
       return tour.start();
     };
@@ -372,5 +371,18 @@
   angular.module('VocowlApp', ['firebase', '$strap.directives']).controller('VocowlCtrl', ['$scope', 'angularFire', f]);
 
   angular.bootstrap(document, ['VocowlApp']);
+
+  $('[rel=tooltip]').tooltip();
+
+  $('#love').popover({
+    html: true,
+    content: function() {
+      return $('#share').html();
+    }
+  });
+
+  $('#introModal').modal('show');
+
+  $('#next').click();
 
 }).call(this);

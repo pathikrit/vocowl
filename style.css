@@ -149,11 +149,15 @@ article>p {
   background-color: #e0ffff;
   width: 100%;
   height: 100%;
-
   -webkit-overflow-scrolling: touch;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+.modal-body {
+  color: #e0ffff;
+  text-align: left;
 }
 
 #flashcard {
