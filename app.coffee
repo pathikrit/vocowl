@@ -69,9 +69,11 @@ f = ($scope, angularFire) ->
   $scope.challenge = word: null, c2: null, c3: null, c2Correct: null
 
   $scope.next = ->
+    return unless $scope.user.settings
     $scope.state = 'loading'
     $scope.selection = 0
     $scope.user.words ?= {}
+    $scope.user.settings.currentDic ?= 'sample'
     pool = lists[$scope.user.settings.currentDic].filter (i) -> $scope.user.words[i] isnt 3
     if pool.length is 0 then return $scope.state = 'finish'
     wordId = pool.random()
@@ -113,6 +115,7 @@ f = ($scope, angularFire) ->
   $scope.correctChoice = (n = $scope.selection) -> $scope.challenge.c2Correct and n is 2 or not $scope.challenge.c2Correct and n is 3
 
   $scope.progress = (type) ->
+    return 0 unless $scope.user.settings?.currentDic
     myDic = lists[$scope.user.settings.currentDic]
     w = [0, 0, 0, 0, 0]
     for word in myDic when $scope.user.words?[word]?

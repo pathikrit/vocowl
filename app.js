@@ -155,11 +155,17 @@
       c2Correct: null
     };
     $scope.next = function() {
-      var incorrectId, pool, wordId, _base, _ref;
+      var incorrectId, pool, wordId, _base, _base1, _ref, _ref1;
+      if (!$scope.user.settings) {
+        return;
+      }
       $scope.state = 'loading';
       $scope.selection = 0;
       if ((_ref = (_base = $scope.user).words) == null) {
         _base.words = {};
+      }
+      if ((_ref1 = (_base1 = $scope.user.settings).currentDic) == null) {
+        _base1.currentDic = 'sample';
       }
       pool = lists[$scope.user.settings.currentDic].filter(function(i) {
         return $scope.user.words[i] !== 3;
@@ -235,12 +241,15 @@
       return $scope.challenge.c2Correct && n === 2 || !$scope.challenge.c2Correct && n === 3;
     };
     $scope.progress = function(type) {
-      var myDic, score, w, word, x, _k, _len2, _ref;
+      var myDic, score, w, word, x, _k, _len2, _ref, _ref1;
+      if (!((_ref = $scope.user.settings) != null ? _ref.currentDic : void 0)) {
+        return 0;
+      }
       myDic = lists[$scope.user.settings.currentDic];
       w = [0, 0, 0, 0, 0];
       for (_k = 0, _len2 = myDic.length; _k < _len2; _k++) {
         word = myDic[_k];
-        if (!(((_ref = $scope.user.words) != null ? _ref[word] : void 0) != null)) {
+        if (!(((_ref1 = $scope.user.words) != null ? _ref1[word] : void 0) != null)) {
           continue;
         }
         score = $scope.user.words[word];
