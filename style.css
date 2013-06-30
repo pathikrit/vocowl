@@ -163,7 +163,7 @@ article>p {
 #welcomeLaunch {
   float: right;
   color: #000000;
-  margin: 5px;
+  margin-right: 15px;
 }
 
 #welcomeLaunch.hover:hover {

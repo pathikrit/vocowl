@@ -186,8 +186,11 @@ f = ($scope, angularFire) ->
   $scope.walkthrough = ->
     if not tour
       tour = introJs()
-      tour.onchange (el) -> if parseInt($(el).attr 'data-step') in [1 .. 6] then meny.close() else meny.open()
-      tour.oncomplete -> $('#introModal').modal('show'); meny.close()
+      tour.onchange (el) ->
+        step = parseInt($(el).attr 'data-step')
+        if step in [1 .. 6] then meny.close() else meny.open()
+        if step is 2 and $scope.state is 'firstShow' then $('#fullShowBtn').click()
+      tour.oncomplete -> meny.close(); $('#introModal').modal('show');
     tour.start()
 
 angular.module('VocowlApp', ['firebase', '$strap.directives']).controller('VocowlCtrl', ['$scope', 'angularFire', f])

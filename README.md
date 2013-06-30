@@ -1,6 +1,5 @@
 Vocowl
 ======
-
 [vocowl](http://vocowl.com) is my attempt to prototype a [no-backend](http://nobackend.org) [server-less](https://unhosted.org/) app that securely authenticates users and accepts payments.
 
 Yes, you can host the `index.html` on your machine and even though you don't have access to any of my sensitive data (like how many users I have or my private Stripe API key), the app would still work (it will authenticate users and sends payments to me).
@@ -9,7 +8,15 @@ You can test this by going to <http://vocowl.com> which is hosted on GitHub page
 
 This technique will let you host sophisticated client-side only apps on static file servers like DropBox or GitHub pages or out of S3. It also makes it possible for users to simply save and use the app locally from their own devices.
 
-Rough sketch of how it works:
+**Vocowl elavator-pitch:**
+
+Vocowl is a collaborative community edited flashcard sharing app where you can upload, share, browse, categorize, rate and edit flashcards and design your custom lessons in a wide variety of topics.
+
+We think plain old passive flashcards are boring so we reinvented them to be interactive and we came up with smart models to keep track of your level of learning and use intelligent algorithms to decide what flashcard to show you next based on your recent performance in your topic of interest.
+
+We are still in the early stages and therefore to get started, we parsed the most frequent 5000 words that have showed up in the past 10 years in the GRE, TOEFL and the SAT exams and created a demo app at <http://vocowl.com> to show how fast, fun and easy it is to use vocowl. We plan to keep vocowl completely open-source and server-less i.e. you can save the webpage and easily run your own copy of the app anytime anywhere.
+
+**Technical details:**
 
 **tl;dr:** To create server-less apps, store data in [Firebase](https://www.firebase.com/) and store complex logic and private keys in [Webshell.io](http://webshell.io/). To get started, you can look at the code in `app.coffee` file.
 
