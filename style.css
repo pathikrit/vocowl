@@ -160,6 +160,17 @@ article>p {
   text-align: left;
 }
 
+#welcomeLaunch {
+  float: right;
+  color: #000000;
+  margin: 5px;
+}
+
+#welcomeLaunch.hover:hover {
+  background-color: #ffffe0;
+  cursor: pointer;
+}
+
 #flashcard {
   padding-top: 3.14%;
   font-family: monospace;

@@ -104,6 +104,8 @@
         </div>
       </div>
 
+      <a id="welcomeLaunch" href="#introModal" class="hover" href="" role="button" data-toggle="modal"><i class="icon-question icon-2x"></i></a>
+
       <div id="flashcard" ng-init="state = 'loading'" ng-cloak ng-show="state === 'firstShow' || state === 'fullShow' || state === 'answer'">
         <span id="word" ng-click="pronounce()" ng-class="user.settings.mute ? '' : 'hover'" data-intro='This is the word you are learning. You can click on it to repeat the pronunciation.' data-step='1'>{{challenge.word}}</span>
         <div style="display: none">
