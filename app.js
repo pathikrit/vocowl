@@ -352,16 +352,20 @@
       if (!tour) {
         tour = introJs();
         tour.onchange(function(el) {
-          var _ref;
-          if (_ref = parseInt($(el).attr('data-step')), __indexOf.call([1, 2, 3, 4, 5, 6], _ref) >= 0) {
-            return meny.close();
+          var step;
+          step = parseInt($(el).attr('data-step'));
+          if (__indexOf.call([1, 2, 3, 4, 5, 6], step) >= 0) {
+            meny.close();
           } else {
-            return meny.open();
+            meny.open();
+          }
+          if (step === 2 && $scope.state === 'firstShow') {
+            return $('#fullShowBtn').click();
           }
         });
         tour.oncomplete(function() {
-          $('#introModal').modal('show');
-          return meny.close();
+          meny.close();
+          return $('#introModal').modal('show');
         });
       }
       return tour.start();

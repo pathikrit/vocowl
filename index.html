@@ -104,7 +104,7 @@
         </div>
       </div>
 
-      <a id="welcomeLaunch" href="#introModal" class="hover" href="" role="button" data-toggle="modal"><i class="icon-question icon-2x"></i></a>
+      <a id="welcomeLaunch" href="#introModal" class="hover" href="" role="button" data-toggle="modal"><i class="icon-question icon-4x"></i></a>
 
       <div id="flashcard" ng-init="state = 'loading'" ng-cloak ng-show="state === 'firstShow' || state === 'fullShow' || state === 'answer'">
         <span id="word" ng-click="pronounce()" ng-class="user.settings.mute ? '' : 'hover'" data-intro='This is the word you are learning. You can click on it to repeat the pronunciation.' data-step='1'>{{challenge.word}}</span>
@@ -114,7 +114,7 @@
           <audio id="correctSound" src="correct.mp3"></audio>
           <audio id="incorrectSound" src="incorrect.mp3"></audio>
         </div>
-        <ol id="choices" data-intro="Your choices show up here. The 2nd and 3rd choices show up after a delay to give you time to think. You can either click 'I don't know' right away or hit any key to immediately show rest of the choices." data-step='2'>
+        <ol id="choices" data-intro="Your choices show up here. The 2nd and 3rd choices show up after a delay to give you time to think. You can either click 'I don't know' right away or hit any key to immediately show all choices." data-step='2'>
           <li><span id="c1" ng-click="choose(1)" ng-class="choiceClass(1)" ng-show="showChoices(1)" data-intro='Click here (or press 1) if you do not know the word.' data-step='3'>1) {{challenge.c1}}</span></li>
           <li><span id="c2" ng-click="choose(2)" ng-class="choiceClass(2)" ng-show="showChoices(2)" data-intro='Click here (or press 2) if you think this is the definition of the word. Based on your recent responses we intelligently prepare the next flashcard.' data-step='4'>2) {{challenge.c2}}</span></li>
           <li><span id="c3" ng-click="choose(3)" ng-class="choiceClass(3)" ng-show="showChoices(3)" data-intro='Click here (or press 3) if you think this is the definition of the word. You may have to get a word right multiple times before we are sure you know it and we stop showing it again.' data-step='5'>3) {{challenge.c3}}</span></li>
