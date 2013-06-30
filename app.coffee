@@ -16,7 +16,12 @@ meny = Meny.create
   menuElement: document.querySelector '.config'
   contentsElement: document.querySelector '.main'
   position: 'left'
-  width: 272
+  width: 258
+
+play = (audioElementId) ->
+  el = document.getElementById audioElementId
+  if window.chrome then el.load() else el.currentTime = 0 # chrome does not support currentTime
+  el.play()
 
 tour = null
 
@@ -36,9 +41,6 @@ clearTimeoutId = (id) -> if id then clearTimeout(id); id = null
 f = ($scope, angularFire) ->
   authClient = new FirebaseAuthClient new Firebase(dbUrl), (error, user) ->
     if user then angularFire("#{dbUrl}/users/#{user.id}", $scope, 'user', email: user.email, persona: user, settings: {})  #todo: on login port over learning
-    $('[rel=tooltip]').tooltip()
-    $('#love').popover html: yes, content: -> $('#share').html()
-    $('#next').click()
 
   $scope.login = -> authClient.login 'Persona'
   $scope.logout = -> authClient.logout(); location.reload()
@@ -69,9 +71,11 @@ f = ($scope, angularFire) ->
   $scope.challenge = word: null, c2: null, c3: null, c2Correct: null
 
   $scope.next = ->
+    return unless $scope.user.settings
     $scope.state = 'loading'
     $scope.selection = 0
     $scope.user.words ?= {}
+    $scope.user.settings.currentDic ?= 'sample'
     pool = lists[$scope.user.settings.currentDic].filter (i) -> $scope.user.words[i] isnt 3
     if pool.length is 0 then return $scope.state = 'finish'
     wordId = pool.random()
@@ -113,6 +117,7 @@ f = ($scope, angularFire) ->
   $scope.correctChoice = (n = $scope.selection) -> $scope.challenge.c2Correct and n is 2 or not $scope.challenge.c2Correct and n is 3
 
   $scope.progress = (type) ->
+    return 0 unless $scope.user.settings?.currentDic
     myDic = lists[$scope.user.settings.currentDic]
     w = [0, 0, 0, 0, 0]
     for word in myDic when $scope.user.words?[word]?
@@ -148,14 +153,19 @@ f = ($scope, angularFire) ->
       $scope.user.words ?= {}
       oldScore = $scope.user.words[$scope.challenge.id] ? 0
       $scope.user.words[$scope.challenge.id] =
-        if n is 1 then 0
-        else if $scope.correctChoice n then Math.min(3, oldScore + 1)
-        else Math.max(-1, oldScore - 1)
+        if n is 1
+          0
+        else if $scope.correctChoice n
+          play 'correctSound'
+          Math.min 3, oldScore + 1
+        else
+          play 'incorrectSound'
+          Math.max -1, oldScore - 1
       $scope.state = 'answer'
 
     else if $scope.state is 'firstShow' then $scope.state = 'fullShow'
 
-  $scope.$watch 'user.settings.currentDic', $scope.next #TODO: Prevent extra sound on this change?
+  $scope.$watch 'user.settings.currentDic', -> $scope.next() unless $scope.state is 'loading'
 
   $scope.audioUrl = -> "http://www.gstatic.com/dictionary/static/sounds/de/0/#{$scope.challenge.word}.mp3"
   $scope.pronounce = -> if not $scope.user.settings?.mute and $scope.state in ['firstShow', 'fullShow', 'answer'] then $('#pronouncer').trigger 'play'
@@ -177,7 +187,13 @@ f = ($scope, angularFire) ->
     if not tour
       tour = introJs()
       tour.onchange (el) -> if parseInt($(el).attr 'data-step') in [1 .. 6] then meny.close() else meny.open()
+      tour.oncomplete -> $('#introModal').modal('show'); meny.close()
     tour.start()
 
 angular.module('VocowlApp', ['firebase', '$strap.directives']).controller('VocowlCtrl', ['$scope', 'angularFire', f])
 angular.bootstrap document, ['VocowlApp']
+
+$('[rel=tooltip]').tooltip()
+$('#love').popover html: yes, content: -> $('#share').html()
+$('#introModal').modal('show')
+$('#next').click()

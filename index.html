@@ -39,10 +39,7 @@
           </h1>
         </header>
 
-        <p>
-          we have curated a list of the top-5000 most frequent and challenging words that have appeared in various tests
-          and designed a smart vocabulary building system that intelligently generates questions based on what you have already learned
-        </p>
+        <p>Choose word list:</p>
 
         <div class="btn-group" ng-model="user.settings.currentDic" ng-init="user.settings.currentDic = 'sample'" bs-buttons-radio data-intro='Choose your word list here. We have hand-picked words in vocowl by parsing questions that have shown up in GRE, TOEFL, SAT I and SAT II examinations in the past 10 years.' data-step='7'>
           <button type="button" class="btn" value="Top-500 TOEFL" ng-disabled="!paid()">Top-500 TOEFL</button>
@@ -90,11 +87,32 @@
         </div>
       </div>
 
+      <div id="introModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3>welcome to vocowl</h3>
+        </div>
+        <div class="modal-body">
+          <p>
+            we have curated a list of the top-5000 most frequent and challenging words that have appeared in the <em>GRE</em>, <em>SAT</em> and <em>TOEFL</em> exams in the past 10 years
+            and designed a smart vocabulary building system that intelligently generates questions based on your recent responses
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-dismiss="modal" ng-click="walkthrough()">show me how to use vocowl</button>
+          <button class="btn" data-dismiss="modal" aria-hidden="true">okay!</button>
+        </div>
+      </div>
+
+      <a id="welcomeLaunch" href="#introModal" class="hover" href="" role="button" data-toggle="modal"><i class="icon-question icon-2x"></i></a>
+
       <div id="flashcard" ng-init="state = 'loading'" ng-cloak ng-show="state === 'firstShow' || state === 'fullShow' || state === 'answer'">
         <span id="word" ng-click="pronounce()" ng-class="user.settings.mute ? '' : 'hover'" data-intro='This is the word you are learning. You can click on it to repeat the pronunciation.' data-step='1'>{{challenge.word}}</span>
         <div style="display: none">
           <button id="fullShowBtn" ng-click="state = 'fullShow'"></button>
           <audio id="pronouncer" ng-src="{{challenge.word ? audioUrl() : ''}}"></audio>
+          <audio id="correctSound" src="correct.mp3"></audio>
+          <audio id="incorrectSound" src="incorrect.mp3"></audio>
         </div>
         <ol id="choices" data-intro="Your choices show up here. The 2nd and 3rd choices show up after a delay to give you time to think. You can either click 'I don't know' right away or hit any key to immediately show rest of the choices." data-step='2'>
           <li><span id="c1" ng-click="choose(1)" ng-class="choiceClass(1)" ng-show="showChoices(1)" data-intro='Click here (or press 1) if you do not know the word.' data-step='3'>1) {{challenge.c1}}</span></li>
@@ -138,11 +156,11 @@
     <script src="app.js" defer></script>
     <script src="https://login.persona.org/include.js"></script>
     <script src="http://api.webshell.io/sdk/js?key=177e5f601d1826f250ebae3c31f388ec"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/intro.js/0.4.0/intro.min.js"></script>
     <script defer>
       // TODO: Make sharing work (http://support.addthis.com/customer/portal/articles/381263-addthis-client-api)
      setTimeout(function() {
        $.getScript('https://checkout.stripe.com/v2/checkout.js');
-       $.getScript('http://cdnjs.cloudflare.com/ajax/libs/intro.js/0.4.0/intro.min.js');
        $.getScript('https://squaresend.com/squaresend.js');
        //TODO:       $.getScript('http://api.webshell.io/sdk/js?key=177e5f601d1826f250ebae3c31f388ec');
        $.getScript('https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51b93bef4bd3bd5b&domready=1', function() {
