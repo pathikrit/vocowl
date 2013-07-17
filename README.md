@@ -72,3 +72,6 @@ module.exports = {
     * Payment data can only be modified through the script I stored in Webshell.io using a private key I stored there
 
 * I can have some additional configuration in Webshell.io that prevents the app from accepting payments and in Firebase from accepting Persona auths unless app is hosted on localhost:8000 or *.github.io or vocowl.com.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/pathikrit/vocowl/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
